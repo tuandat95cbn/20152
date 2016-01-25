@@ -59,32 +59,52 @@ public class Suduko {
 		mgr.close();
 	}
 	
-	public void search(int maxStep){		
+	public void search(int maxStep, int tabulen){		
 		int it=0;
+		
+		int tabu[][] = new int[n][n];
+		for(int i=0; i<n; i++){
+			for(int j=0; j<n; j++){
+				tabu[i][j]=-1;
+			}
+		}
+		
+		ArrayList<ValueVariable> move = new ArrayList<ValueVariable>();
+		Random R = new Random();
+		int best = csys.violations();
 		
 		while(it<maxStep && csys.violations()>0){			
 			int minDel=10000;
-			ArrayList<ValueVariable> A = new ArrayList<ValueVariable>();
+			move.clear();
 			
 			for(int i=0; i<n; i++){
 				for(int j=0; j<n-1; j++){
 					for(int k=j+1; k<n; k++){
-						if(csys.getSwapDelta(x[i][j], x[i][k])<minDel){
-							A.clear();
-							A.add(new ValueVariable(i, j, k));
-							minDel = csys.getSwapDelta(x[i][j], x[i][k]);
-						}
-						else if(csys.getSwapDelta(x[i][j], x[i][k])==minDel){
-							A.add(new ValueVariable(i, j, k));
+						int delta = csys.getSwapDelta(x[i][j], x[i][k]);
+				
+						if(tabu[i][j]<=it || csys.violations()+delta<best){
+							if(delta<minDel){
+								move.clear();
+								move.add(new ValueVariable(i, j, k));
+								minDel = csys.getSwapDelta(x[i][j], x[i][k]);
+							}
+							else if(delta==minDel){
+								move.add(new ValueVariable(i, j, k));
+							}
 						}
 					}
 				}
 			}
 			
-			Random R = new Random();
-			ValueVariable r = A.get(R.nextInt(A.size()));
+			
+			ValueVariable r = move.get(R.nextInt(move.size()));
 							
 			x[r.i][r.j].swapValuePropagate(x[r.i][r.k]);
+			tabu[r.i][r.j]=it+tabulen;
+			if(csys.violations()<best){
+				best = csys.violations();
+			}
+			
 			it++;
 			System.out.println("Step "+it + " swap "+"x["+r.i+"]["+ r.j+"] vs "+"x["+r.i+"]["+ r.k+"]"+ "   Violations= "+csys.violations());
 		}
@@ -110,7 +130,7 @@ public class Suduko {
 	public static void main(String args[]){
 		Suduko S = new Suduko(49);
 		S.stateModel();
-		//S.search(100000);
+		S.search(100000,40);
 		System.out.println(S.csys.violations());
 		for(int i=0; i<S.n ; i++){
 			for(int j=0; j<S.n; j++){
