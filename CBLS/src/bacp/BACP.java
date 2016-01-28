@@ -265,7 +265,7 @@ public class BACP {
 			}
 			System.out.println();
 		}
-		b.optimize(100);
+		b.optimize(1000);
 		
 		for(int i=0; i<b.period; i++){
 			System.out.print("Period "+(i+1)+" ("+b.sum[i].getValue()+") "+": ");
