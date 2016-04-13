@@ -1,0 +1,75 @@
+@CHARSET "UTF-8";
+
+html, body {
+    height: 100%;
+    margin: 0;
+	padding: 0;
+}
+
+label{
+	margin-left:20px;
+	font-weight:bold;
+}
+
+#map {
+	height: 100%;
+}
+
+.controls {
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+	background-color: #fff;
+	font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+      
+#cName{
+	background-color: #fff;
+	font-family: Roboto;
+	font-size: 15px;
+	font-weight: 300;
+	margin-left: 12px;
+	padding: 0 11px 0 13px;
+	text-overflow: ellipsis;
+	width: 300px;
+}
+
+#cName-focus{
+	border-color: #4d90fe;
+}
+
+.button-submit {
+	background-color: #E8E8E8;
+	border: 1px solid #dcdcdc;
+	border-radius: 2px;
+	font-family:'Helvetica Neue',Arial,sans-serif;
+	font-size:14px;
+	font-weight:600;
+	height:36px;
+	padding:4px 16px;
+	margin-left:20px;
+	color:#A0A0A0;
+}
+
+.button-submit:hover{
+	background-color: #F8F8F8 ;
+	color:black;
+}
